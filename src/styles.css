@@ -1,0 +1,126 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f4f4f4;
+    color: #333;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    text-align: center;
+}
+
+.file-inputs {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+textarea {
+    width: 85%;
+    height: 150px;
+    margin-top: 10px;
+    margin-bottom: 15px;
+    padding: 10px;
+    font-size: 18px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 10px 15px;
+    background-color: #ddd;
+    color: black;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.custom-file-upload input {
+    display: none;
+}
+
+.file-drop-zone {
+    border: 2px dashed #aaa;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.3s;
+    flex: 1;
+}
+
+.file-drop-zone.dragover {
+    background-color: #ddd;
+}
+
+.buttons {
+    margin: 15px 0;
+}
+
+button {
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 5px;
+    border: none;
+    border-radius: 5px;
+    background-color: #ddd;
+    color: black;
+    transition: background 0.3s;
+}
+
+button:hover {
+    background-color: #bbb;
+}
+
+.result-container {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.result-box {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+    text-align: left;
+    font-family: monospace;
+    font-size: 18px;
+    height: 40vh;
+    overflow-y: auto;
+    white-space: pre-line;
+}
+
+.dark-mode {
+    background-color: #222;
+    color: #eee;
+}
+
+.dark-mode .result-box {
+    background-color: #333;
+    border-color: #555;
+}
+
+/* Подсветка различий */
+.diff-line {
+    background-color: rgba(255, 0, 0, 0.2);
+    padding: 2px;
+}
+
+.char-diff {
+    background-color: red;
+    color: white;
+    font-weight: bold;
+    padding: 2px;
+}
+
+.dark-mode .diff-line {
+    background-color: rgba(0, 255, 0, 0.2);
+}
+
+.dark-mode .char-diff {
+    background-color: green;
+}

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" sizes="512x512" href="src/img/favicon.ico">
+    <link rel="icon" type="image/png" sizes="512x512" href="src/img/favicon.ico">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>Сравнение документов</title>
+    <link rel="stylesheet" href="src/styles.css">
+</head>
+<body>
+
+<div class="container">
+    <h1>Сравнение документов</h1>
+    <div class="logo-container">
+        <svg width="400" height="200" xmlns="http://www.w3.org/2000/svg" style="display: block; margin: 0 auto;">
+            <style>
+              .doc-text {
+                font-family: Arial, sans-serif;
+                font-weight: bold;
+                font-size: 16px;
+                user-select: none;
+              }
+            </style>
+          
+            <!-- Левый документ -->
+            <g transform="rotate(-8 100 100)">
+              <rect x="50" y="30" width="100" height="140" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+              <text x="100" y="105" class="doc-text" fill="#1976d2" text-anchor="middle">Compare</text>
+            </g>
+          
+            <!-- Правый документ -->
+            <g transform="rotate(8 300 100)">
+              <rect x="250" y="30" width="100" height="140" rx="8" fill="#f0f4c3" stroke="#8bc34a" stroke-width="2"/>
+              <text x="300" y="105" class="doc-text" fill="#8bc34a" text-anchor="middle">Text</text>
+            </g>
+          
+            <!-- Верхняя стрелка (Compare → Text) -->
+            <path d="M150 40 Q 200 15, 250 40" 
+                  stroke="#1976d2" 
+                  stroke-width="2" 
+                  fill="none" 
+                  marker-end="url(#arrow-top)">
+              <animateTransform 
+                attributeName="transform"
+                attributeType="XML"
+                type="rotate"
+                from="0 200 100"
+                to="360 200 100"
+                dur="6s"
+                repeatCount="indefinite"/>
+            </path>
+          
+            <!-- Нижняя стрелка (Text → Compare) -->
+            <path d="M250 160 Q 200 185, 150 160" 
+                  stroke="#8bc34a" 
+                  stroke-width="2" 
+                  fill="none" 
+                  marker-end="url(#arrow-bottom)">
+              <animateTransform 
+                attributeName="transform"
+                attributeType="XML"
+                type="rotate"
+                from="0 200 100"
+                to="360 200 100"
+                dur="6s"
+                repeatCount="indefinite"/>
+            </path>
+          
+            <defs>
+              <!-- Маркеры симметричности -->
+              <marker id="arrow-top" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                <path d="M0,0 L0,8 L8,4 Z" fill="#1976d2"/>
+              </marker>
+              
+              <marker id="arrow-bottom" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                <path d="M0,0 L0,8 L8,4 Z" fill="#8bc34a"/> <!-- направление -->
+              </marker>
+            </defs>
+          </svg>
+    </div>
+
+    <div class="file-inputs">
+        <div class="file-drop-zone" id="dropZone1">
+            <h3>Эталонный документ</h3>
+            <label class="custom-file-upload">
+                <input type="file" id="file1" accept=".txt,.docx,.pdf">
+                Перетащите файл или <span>выберите</span>
+            </label>
+            <textarea id="doc1" placeholder="Введите текст эталонного документа..."></textarea>
+        </div>
+        <div class="file-drop-zone" id="dropZone2">
+            <h3>Сравниваемый документ</h3>
+            <label class="custom-file-upload">
+                <input type="file" id="file2" accept=".txt,.docx,.pdf">
+                Перетащите файл или <span>выберите</span>
+            </label>
+            <textarea id="doc2" placeholder="Введите текст сравниваемого документа..."></textarea>
+        </div>
+    </div>
+
+    <div class="buttons">
+        <button id="compareBtn">Сравнить</button>
+        <button id="clearBtn">Очистить</button>
+        <button id="copyBtn">Копировать результат</button>
+        <button id="themeToggle">🌙 Тема</button>
+    </div>
+
+    <h2 id="resultTitle">Результат:</h2>
+    <div class="result-container">
+        <div class="result-box">
+            <h3 id="fileName1">Эталонный документ</h3>
+            <div id="result1"></div>
+        </div>
+        <div class="result-box">
+            <h3 id="fileName2">Сравниваемый документ</h3>
+            <div id="result2"></div>
+        </div>
+    </div>
+</div>
+
+<script src="https://unpkg.com/mammoth@1.4.8/mammoth.browser.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.6.347/pdf.min.js"></script>
+<script src="src/script.js"></script>
+</body>
+</html>

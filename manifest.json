@@ -1,0 +1,20 @@
+{
+    "name": "Сравение Документов",
+    "short_name": "Сравение Документов",
+    "start_url": "/CompareText/",
+    "display": "standalone",
+    "background_color" : "#4a3429",
+    "icons": [
+      {
+        "src": "src/img/favicon.ico",
+        "sizes": "192x192",
+        "type": "img/png"
+      },
+      {
+        "src": "src/img/favicon.ico",
+        "sizes": "512x512",
+        "background_color" : "#4a3429",
+        "type": "img/png"
+      }
+    ]
+  }
