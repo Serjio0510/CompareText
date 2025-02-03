@@ -3,6 +3,7 @@ let fullDoc2 = '';
 const PREVIEW_LINES = 5; // Количество строк в предпросмотре
 
 document.addEventListener("DOMContentLoaded", function () {
+    // Загружаем сохраненную тему
     if (localStorage.getItem("theme") === "dark") {
         document.body.classList.add("dark-mode");
     }
@@ -39,6 +40,23 @@ document.getElementById('clearBtn').addEventListener('click', function() {
     document.getElementById('result2').innerHTML = '';
     fullDoc1 = '';
     fullDoc2 = '';
+});
+
+// Кнопка "Копировать"
+document.getElementById('copyBtn').addEventListener('click', function() {
+    const tempElement = document.createElement("textarea");
+    tempElement.value = document.getElementById('result2').innerText;
+    document.body.appendChild(tempElement);
+    tempElement.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempElement);
+    alert("Результат скопирован в буфер обмена");
+});
+
+// Переключение темы
+document.getElementById('themeToggle').addEventListener('click', function() {
+    document.body.classList.toggle("dark-mode");
+    localStorage.setItem("theme", document.body.classList.contains("dark-mode") ? "dark" : "light");
 });
 
 // Функция для добавления нумерации строк
@@ -172,10 +190,10 @@ setupDragAndDrop("dropZone2", "file2", "doc2", "fileName2", false);
 // Service Worker
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-      navigator.serviceWorker.register('/CompareText/sw.js').then((registration) => {
-        console.log('Service Worker зарегистрирован с областью:', registration.scope);
-      }).catch((error) => {
-        console.log('Ошибка регистрации Service Worker:', error);
-      });
+        navigator.serviceWorker.register('/CompareText/sw.js').then((registration) => {
+            console.log('Service Worker зарегистрирован:', registration.scope);
+        }).catch((error) => {
+            console.log('Ошибка регистрации Service Worker:', error);
+        });
     });
-  }
+}
