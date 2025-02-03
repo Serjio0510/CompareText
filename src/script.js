@@ -172,10 +172,10 @@ setupDragAndDrop("dropZone2", "file2", "doc2", "fileName2", false);
 // Service Worker
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/CompareText/sw.js').then((registration) => {
-            console.log('Service Worker зарегистрирован:', registration.scope);
-        }).catch((error) => {
-            console.log('Ошибка регистрации Service Worker:', error);
-        });
+      navigator.serviceWorker.register('/CompareText/sw.js').then((registration) => {
+        console.log('Service Worker зарегистрирован с областью:', registration.scope);
+      }).catch((error) => {
+        console.log('Ошибка регистрации Service Worker:', error);
+      });
     });
-}
+  }
