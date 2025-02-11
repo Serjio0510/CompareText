@@ -7,12 +7,12 @@
     "icons": [
       {
         "src": "src/img/manif.png",
-        "sizes": "192x192",
+        "sizes": "768x768",
         "type": "image/png"
       },
       {
         "src": "src/img/manif.png",
-        "sizes": "512x512",
+        "sizes": "768x768",
         "background_color" : "#4a3429",
         "type": "image/png"
       }

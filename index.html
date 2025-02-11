@@ -103,11 +103,32 @@
     </div>
 
     <div class="buttons">
-        <button id="compareBtn">Сравнить</button>
-        <button id="clearBtn">Очистить</button>
-        <button id="copyBtn">Копировать результат</button>
-        <button id="themeToggle">🌙 Тема</button>
-    </div>
+      <button id="compareBtn">Сравнить</button>
+      <button id="clearBtn">Очистить</button>
+      <button id="copyBtn">Копировать результат</button>
+      <button id="removeSpacesBtn" class="toggle-btn">Удалить пробелы</button>
+      <button id="replaceBtn" class="toggle-btn">Заменить</button>
+      <button id="searchBtn" class="toggle-btn">Найти</button>
+      <button id="deleteLineBtn" class="toggle-btn">Удалить строку</button>
+      <button id="themeToggle">🌙 Тема</button>
+  </div>
+  
+  <!-- Инпуты для замены, поиска и удаления строк -->
+  <div id="replaceInputs" class="input-container" style="display: none;">
+      <input type="text" id="replaceFrom" placeholder="Заменить...">
+      <input type="text" id="replaceTo" placeholder="На...">
+      <button id="replaceConfirmBtn">Применить</button>
+  </div>
+  
+  <div id="searchInput" class="input-container" style="display: none;">
+      <input type="text" id="searchText" placeholder="Введите текст для поиска...">
+      <button id="searchConfirmBtn">Найти</button>
+  </div>
+  
+  <div id="deleteLineInput" class="input-container" style="display: none;">
+      <input type="text" id="deleteLineText" placeholder="Введите символ/слово для удаления строки...">
+      <button id="deleteLineConfirmBtn">Удалить</button>
+  </div>
 
     <h2 id="resultTitle">Результат:</h2>
     <div class="result-container">

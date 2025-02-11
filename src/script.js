@@ -32,25 +32,39 @@ document.getElementById('compareBtn').addEventListener('click', function() {
     document.getElementById('result2').innerHTML = highlightChanges(fullDoc1, fullDoc2);
 });
 
-// Очистка полей
-document.getElementById('clearBtn').addEventListener('click', function() {
-    document.getElementById('doc1').value = '';
-    document.getElementById('doc2').value = '';
-    document.getElementById('result1').innerHTML = '';
-    document.getElementById('result2').innerHTML = '';
-    fullDoc1 = '';
-    fullDoc2 = '';
+// Обновленный код для кнопки "Копировать"
+document.getElementById('copyBtn').addEventListener('click', function() {
+    const result2 = document.getElementById('result2');
+
+    // Получаем текст без HTML-тегов
+    const textContent = result2.textContent;
+
+    // Удаляем номера строк (например, "1: ", "2: ", и т.д.)
+    const textWithoutLineNumbers = textContent.replace(/^\d+:\s/gm, '');
+
+    // Копируем очищенный текст
+    navigator.clipboard.writeText(textWithoutLineNumbers).then(() => {
+        alert('Текст скопирован без нумерации строк!');
+    }).catch(err => {
+        console.error('Ошибка при копировании текста:', err);
+    });
 });
 
-// Кнопка "Копировать"
-document.getElementById('copyBtn').addEventListener('click', function() {
-    const tempElement = document.createElement("textarea");
-    tempElement.value = document.getElementById('result2').innerText;
-    document.body.appendChild(tempElement);
-    tempElement.select();
-    document.execCommand("copy");
-    document.body.removeChild(tempElement);
-    alert("Результат скопирован в буфер обмена");
+// Обновленный код для кнопки "Очистить"
+document.getElementById('clearBtn').addEventListener('click', function() {
+    // Очищаем все поля и заголовки
+    document.getElementById('doc1').value = '';
+    document.getElementById('doc2').value = '';
+    document.getElementById('result1').textContent = '';
+    document.getElementById('result2').textContent = '';
+    
+    // Сбрасываем заголовки к исходным
+    document.getElementById('fileName1').textContent = 'Эталонный документ';
+    document.getElementById('fileName2').textContent = 'Сравниваемый документ';
+    
+    // Сбрасываем все активные кнопки
+    document.querySelectorAll('.toggle-btn.active').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.input-container').forEach(container => container.style.display = 'none');
 });
 
 // Переключение темы
@@ -197,3 +211,72 @@ if ('serviceWorker' in navigator) {
         });
     });
 }
+
+// Исправленный JavaScript
+let originalText1 = '';
+let originalText2 = '';
+
+// Переключаемые кнопки и инпуты
+document.querySelectorAll('.toggle-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const containerId = {
+            'replaceBtn': 'replaceInputs',
+            'searchBtn': 'searchInput',
+            'deleteLineBtn': 'deleteLineInput'
+        }[this.id];
+
+        if (containerId) {
+            const container = document.getElementById(containerId);
+            container.style.display = this.classList.toggle('active') ? 'flex' : 'none';
+        }
+    });
+});
+
+// Удаление пробелов (сохраняем переносы строк)
+document.getElementById('removeSpacesBtn').addEventListener('click', function() {
+    const isActive = this.classList.toggle('active');
+    
+    if (isActive) {
+        // Сохраняем оригинальный текст
+        originalText1 = document.getElementById('result1').textContent;
+        originalText2 = document.getElementById('result2').textContent;
+        
+        // Удаляем только обычные пробелы (не табы и переносы)
+        const newText1 = originalText1.replace(/ /g, '');
+        const newText2 = originalText2.replace(/ /g, '');
+        
+        document.getElementById('result1').textContent = newText1;
+        document.getElementById('result2').textContent = newText2;
+    } else {
+        // Восстанавливаем оригинальный текст
+        document.getElementById('result1').textContent = originalText1;
+        document.getElementById('result2').textContent = originalText2;
+    }
+});
+
+// Замена символа/слова
+document.getElementById('replaceConfirmBtn').addEventListener('click', function() {
+    const replaceFrom = document.getElementById('replaceFrom').value;
+    const replaceTo = document.getElementById('replaceTo').value;
+    const text = document.getElementById('result2').textContent;
+    const newText = text.replace(new RegExp(replaceFrom, 'g'), replaceTo);
+    document.getElementById('result2').textContent = newText;
+});
+
+// Поиск по тексту
+document.getElementById('searchConfirmBtn').addEventListener('click', function() {
+    const searchText = document.getElementById('searchText').value;
+    const text = document.getElementById('result2').textContent;
+    const regex = new RegExp(`(${searchText})`, 'gi');
+    const highlightedText = text.replace(regex, '<span class="highlight">$1</span>');
+    document.getElementById('result2').innerHTML = highlightedText;
+});
+
+// Удаление строки
+document.getElementById('deleteLineConfirmBtn').addEventListener('click', function() {
+    const deleteLineText = document.getElementById('deleteLineText').value;
+    const text = document.getElementById('result2').textContent;
+    const lines = text.split('\n');
+    const newLines = lines.filter(line => !line.includes(deleteLineText));
+    document.getElementById('result2').textContent = newLines.join('\n');
+});
